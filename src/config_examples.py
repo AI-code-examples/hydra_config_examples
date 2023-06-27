@@ -23,6 +23,15 @@ from omegaconf import OmegaConf
 @hydra.main(version_base=None, config_path='../conf', config_name='config')
 def main(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
+    assert cfg.node.loompa == 10  # attribute style access
+    assert cfg["node"]["loompa"] == 10  # dictionary style access
+
+    assert cfg.node.zippity == 10  # Value interpolation
+    assert isinstance(cfg.node.zippity, int)  # Value interpolation type
+    assert cfg.node.do == "oompa 10"  # string interpolation
+
+    cfg.node.do
+    cfg.node.waldo  # raises an exception
     pass
 
 

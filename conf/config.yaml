@@ -2,3 +2,8 @@ db:
   driver: mysql
   user: root
   pass: 123456
+node:                         # 有层次的配置
+  loompa: 10                  # 简单值
+  zippity: ${node.loompa}     # 插入值
+  do: "oompa ${node.loompa}"  # 插入字符串
+  waldo: ???                  # Missing value, must be populated prior to access
