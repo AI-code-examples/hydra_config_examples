@@ -1,2 +1,6 @@
 defaults:
   - db: mysql
+  - _self_  # 默认使用排在后面的配置
+
+db:
+  user: root
