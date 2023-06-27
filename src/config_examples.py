@@ -15,6 +15,8 @@
 @Description:   
 @Thought    :
 """
+import logging
+import os
 import hydra
 from omegaconf import DictConfig
 from omegaconf import OmegaConf
@@ -30,12 +32,21 @@ def main(cfg: DictConfig) -> None:
     assert isinstance(cfg.node.zippity, int)  # Value interpolation type
     assert cfg.node.do == "oompa 10"  # string interpolation
 
-    cfg.node.do
-    cfg.node.waldo  # raises an exception
+    # cfg.node.waldo  # raises an exception
+
+    print(f"Current working directory : {os.getcwd()}")
+    print(f"Orig working directory    : {hydra.utils.get_original_cwd()}")
+    print(f"to_absolute_path('foo')   : {hydra.utils.to_absolute_path('foo')}")
+    print(f"to_absolute_path('/foo')  : {hydra.utils.to_absolute_path('/foo')}")
+    print()
+
+    log.info("Info level message")
+    log.debug("Debug level message")
     pass
 
 
 # ----------------------------------------------------------------------
 # 小结
 if __name__ == '__main__':
+    log=logging.getLogger(__name__)
     main()
