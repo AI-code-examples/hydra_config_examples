@@ -70,9 +70,22 @@ def main_config3(cfg: DictConfig) -> None:
     pass
 
 
+@hydra.main(version_base=None, config_name="config1")
+def main_mysql_config(cfg: MySQLConfig) -> None:
+    """不再使用通用类 DictConfig 来定义 cfg
+
+    :param cfg: 容许类的属性静态检查
+    :return:
+    """
+    print('main_mysql_config--->')
+    print(OmegaConf.to_yaml(cfg))
+    pass
+
+
 # ----------------------------------------------------------------------
 # 小结
 if __name__ == '__main__':
     main_config1()
     main_config2()
     main_config3()
+    main_mysql_config()
