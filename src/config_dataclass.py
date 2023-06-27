@@ -15,35 +15,16 @@
 @Description:   
 @Thought    :
 """
+from dataclasses import dataclass
+from dataclasses import field
+
 import hydra
-from omegaconf import DictConfig, OmegaConf
-from dataclasses import dataclass, field
 from hydra.core.config_store import ConfigStore
+from omegaconf import DictConfig
+from omegaconf import OmegaConf
 
-
-@dataclass
-class MySQLConfig:
-    driver: str = 'mysql'
-    user: str = 'mysql_user'
-    password: str = '223456'
-    timeout: int = 20
-    host: str = 'localhost'
-    port: int = 3306
-
-
-@dataclass
-class PostgresSQLConfig:
-    driver: str = "postgresql"
-    user: str = "jieru"
-    password: str = "secret"
-    timeout: int = 20
-
-
-@dataclass
-class UserInterface:
-    title: str = 'my app'
-    width: int = 1024
-    height: int = 768
+from config.db_config import MySQLConfig
+from config.ui_config import UserInterface
 
 
 @dataclass

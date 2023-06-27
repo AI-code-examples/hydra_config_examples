@@ -20,28 +20,10 @@ from typing import Any
 
 import hydra
 from hydra.core.config_store import ConfigStore
-from omegaconf import MISSING
 from omegaconf import OmegaConf
 
-
-@dataclass
-class DBConfig:  # 将共用字段抽取出来作为父类
-    port: int = MISSING  # 没有默认值的要排在前面，MISSING与???等价
-    driver: str = MISSING
-    host: str = 'localhost'
-
-
-@dataclass
-class MySQLConfig(DBConfig):
-    driver: str = "mysql"
-    port: int = 3306
-
-
-@dataclass
-class PostGreSQLConfig(DBConfig):
-    driver: str = "postgresql"
-    port: int = 5432
-    timeout: int = 10
+from config.db_config import MySQLConfig
+from config.db_config import PostGreSQLConfig
 
 
 @dataclass
