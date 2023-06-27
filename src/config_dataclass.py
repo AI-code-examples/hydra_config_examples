@@ -17,7 +17,7 @@
 """
 import hydra
 from omegaconf import DictConfig, OmegaConf
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from hydra.core.config_store import ConfigStore
 
 
@@ -39,14 +39,29 @@ class PostgresSQLConfig:
     timeout: int = 20
 
 
+@dataclass
+class UserInterface:
+    title: str = 'my app'
+    width: int = 1024
+    height: int = 768
+
+
+@dataclass
+class MyConfig:
+    db: MySQLConfig = field(default_factory=MySQLConfig)
+    ui: UserInterface = field(default_factory=UserInterface)
+
+
 cs = ConfigStore.instance()
 
-# 直接使用类型
+# 使用类
 cs.store(name="config1", node=MySQLConfig)
-# Using an instance, overriding some default values
+# 初始化为实例，覆盖某些默认值
 cs.store(name="config2", node=MySQLConfig(host="test.db", port=3307))
-# Using a dictionary, forfeiting runtime type safety
+# 使用字典，推动运行期类型安全
 cs.store(name="config3", node={"host": "localhost", "port": 3308})
+# 使用层次化静态配置
+cs.store(name="my_config", node=MyConfig)
 
 
 @hydra.main(version_base=None, config_name="config1")
@@ -82,6 +97,14 @@ def main_mysql_config(cfg: MySQLConfig) -> None:
     pass
 
 
+@hydra.main(version_base=None, config_name="my_config")
+def main_my_config(cfg: MyConfig) -> None:
+    print('main_my_config--->')
+    print(OmegaConf.to_yaml(cfg))
+    print(f"标题={cfg.ui.title}, 尺寸={cfg.ui.width}x{cfg.ui.height} 像素")
+    pass
+
+
 # ----------------------------------------------------------------------
 # 小结
 if __name__ == '__main__':
@@ -89,3 +112,4 @@ if __name__ == '__main__':
     main_config2()
     main_config3()
     main_mysql_config()
+    main_my_config()
