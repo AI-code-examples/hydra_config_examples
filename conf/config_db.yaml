@@ -1,5 +1,7 @@
 defaults:
   - db: mysql
+  - ui: full
+  - schema: school
   - _self_  # 默认使用排在后面的配置
 
 db:
