@@ -19,25 +19,30 @@ from dataclasses import dataclass
 
 from omegaconf import MISSING
 
+from config.user_config import UserConfig
+from config.user_config import UserMySQL
+from config.user_config import UserPostGreSQL
+
 
 @dataclass
 class DBConfig:  # 将共用字段抽取出来作为父类
     driver: str = MISSING  # 没有默认值的要排在前面，MISSING与???等价
     port: int = MISSING
+    user_config: UserConfig = MISSING
     host: str = 'localhost'
     timeout: int = 20
-    user: str = 'root'
-    password: str = '123456'
 
 
 @dataclass
 class MySQLConfig(DBConfig):
     driver: str = "mysql"
     port: int = 3306
+    user_config: UserMySQL = UserMySQL
 
 
 @dataclass
 class PostGreSQLConfig(DBConfig):
     driver: str = "postgresql"
     port: int = 5432
+    user_config: UserPostGreSQL = UserPostGreSQL
     timeout: int = 10
