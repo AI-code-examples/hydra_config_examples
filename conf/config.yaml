@@ -7,3 +7,30 @@ node:                         # 有层次的配置
   zippity: ${node.loompa}     # 插入值
   do: "oompa ${node.loompa}"  # 插入字符串
   waldo: ???                  # 缺失值，使用之前必须先通过参数赋值
+
+hydra:
+  help:
+    app_name: AwesomeApp
+    header: == ${hydra.help.app_name} ==
+    footer: |-
+      Powered by Hydra (https://hydra.cc)
+      Use --hydra-help to view Hydra specific help
+    template: |-
+      ${hydra.help.header}
+
+      This is ${hydra.help.app_name}!
+      You can choose a db driver by appending
+      == Configuration groups ==
+      Compose your configuration from those groups (db=mysql)
+
+      $APP_CONFIG_GROUPS
+
+      == Config ==
+      This is the config generated for this run.
+      You can override everything, for example:
+      python my_app.py db.user=foo db.pass=bar
+      -------
+      $CONFIG
+      -------
+
+      ${hydra.help.footer}

@@ -17,6 +17,7 @@
 """
 import logging
 import os
+
 import hydra
 from omegaconf import DictConfig
 from omegaconf import OmegaConf
@@ -48,5 +49,5 @@ def main(cfg: DictConfig) -> None:
 # ----------------------------------------------------------------------
 # 小结
 if __name__ == '__main__':
-    log=logging.getLogger(__name__)
+    log = logging.getLogger(__name__)
     main()
